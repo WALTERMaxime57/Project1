@@ -1,36 +1,8 @@
-
-// NIGHT MODE
-
-var body = document.querySelector("body"),
-  sidebar = body.querySelector(".sidebar"),
-  toggle = body.querySelector(".toggle"),
-  searchBtn = body.querySelector(".search-box"),
-  modeSwitch = body.querySelector(".toggle-switch"),
-  modeText = body.querySelector(".mode-text");
-
-toggle.addEventListener("click", () => {
-  sidebar.classList.toggle("close");
-});
-searchBtn.addEventListener("click", () => {
-  sidebar.classList.remove("close");
-});
-modeSwitch.addEventListener("click", () => {
-  body.classList.toggle("dark");
-
-  if (body.classList.contains("dark")) {
-    modeText.innerText = "Mode Jour";
-  } else {
-    modeText.innerText = "Mode Nuit";
-  }
-});
-
 //******************TASK MANAGER*********************//
-
 
 //** VAR **//
 
-
-var dateControl = document.getElementById("date");
+var $dateControl = $("date");
 var inputTitle = document.querySelector(".task-manager-input-title");
 console.log(inputTitle);
 var selectImportance = document.querySelector(
@@ -52,14 +24,15 @@ inputDatePicker.min = new Date().toISOString().split("T")[0];
 inputDatePicker.valueAsDate = new Date();
 dateControl.valueAsDate = new Date();
 
-dateControl.addEventListener("change", () => {
+$dateControl.on("change", function () {
   console.log(dateControl.value);
   updateEventToBodyContent();
 });
 
 //** CREATE EVENT **//
+var $buttonAddEvent = $(".task-manager-content-left-button-add-event");
 
-buttonAddEvent.addEventListener("click", () => {
+$buttonAddEvent.click(function () {
   if (!inputTitle.value || selectImportance.value === "0") {
     alert("Veuillez completer l'entiéreté des valeurs ci-dessus !");
   } else {
@@ -82,28 +55,24 @@ buttonAddEvent.addEventListener("click", () => {
     inputDatePicker.valueAsDate = new Date();
   }
 });
-function addingEventToBodyContent(colorImportance) {
-  var bodyContentAddingEvent = document.querySelector(
-    ".task-manager-content-right-ul"
-  );
-  var $eventBar = document.createElement("li");
-  $eventBar.id = inputTitle.value + "-" + inputDatePicker.value;
-  bodyContentAddingEvent.appendChild($eventBar);
 
-  var $eventImportance = document.createElement("div");
+function addingEventToBodyContent(colorImportance) {
+  var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+  var $eventBar = $("li");
+  $eventBar.id = inputTitle.value + "-" + inputDatePicker.value;
+  $bodyContentAddingEvent.append($eventBar);
+
+  var $eventImportance = $("div");
   $eventImportance.id = selectImportance.value;
-  $eventImportance.style.background = colorImportance;
-  var $eventTitle = document.createElement("span");
+  $eventImportance.css("background", colorImportance);
+  var $eventTitle = $("span");
   $eventTitle.id = inputTitle.value;
-  $eventTitle.innerHTML = inputTitle.value;
-  $eventBar.appendChild($eventImportance);
-  $eventBar.appendChild($eventTitle);
+  $eventTitle.html(inputTitle.value);
+  $eventBar.append($eventImportance);
+  $eventBar.append($eventTitle);
 }
 function updateEventToBodyContent() {
   addingEventToBodyContent();
-  var bodyContentAddingEvent = document.querySelector(
-    ".task-manager-content-right-ul"
-  );
-  bodyContentAddingEvent.innerHTML = "";
+  var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+  $bodyContentAddingEvent.html("");
 }
-
