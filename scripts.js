@@ -1,3 +1,4 @@
+
 // NIGHT MODE
 
 var body = document.querySelector("body"),
@@ -25,7 +26,9 @@ modeSwitch.addEventListener("click", () => {
 
 //******************TASK MANAGER*********************//
 
-//** TAKE VAR **//
+
+//** VAR **//
+
 
 var dateControl = document.getElementById("date");
 var inputTitle = document.querySelector(".task-manager-input-title");
@@ -51,6 +54,7 @@ dateControl.valueAsDate = new Date();
 
 dateControl.addEventListener("change", () => {
   console.log(dateControl.value);
+  updateEventToBodyContent();
 });
 
 //** CREATE EVENT **//
@@ -78,7 +82,6 @@ buttonAddEvent.addEventListener("click", () => {
     inputDatePicker.valueAsDate = new Date();
   }
 });
-
 function addingEventToBodyContent(colorImportance) {
   var bodyContentAddingEvent = document.querySelector(
     ".task-manager-content-right-ul"
@@ -96,3 +99,11 @@ function addingEventToBodyContent(colorImportance) {
   $eventBar.appendChild($eventImportance);
   $eventBar.appendChild($eventTitle);
 }
+function updateEventToBodyContent() {
+  addingEventToBodyContent();
+  var bodyContentAddingEvent = document.querySelector(
+    ".task-manager-content-right-ul"
+  );
+  bodyContentAddingEvent.innerHTML = "";
+}
+
