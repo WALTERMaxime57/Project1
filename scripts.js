@@ -1,4 +1,3 @@
-
 // NIGHT MODE
 
 var body = document.querySelector("body"),
@@ -26,10 +25,8 @@ modeSwitch.addEventListener("click", () => {
 
 //******************TASK MANAGER*********************//
 
-
 //** VAR **//
-
-
+var e = 1;
 var dateControl = document.getElementById("date");
 var inputTitle = document.querySelector(".task-manager-input-title");
 console.log(inputTitle);
@@ -59,10 +56,75 @@ dateControl.addEventListener("change", () => {
 
 //** CREATE EVENT **//
 
+function changeDataToDateControl() {
+  var nbrOfDataToDateControl = localStorage.getItem(dateControl.value);
+
+  for (
+    var nbrForChangeData = 1;
+    nbrForChangeData <= nbrOfDataToDateControl;
+    nbrForChangeData++
+  ) {
+    var dataForDay = JSON.parse(
+      localStorage.getItem(dateControl.value + " " + nbrForChangeData)
+    );
+    console.log(dataForDay.title);
+    console.log(dataForDay.importance);
+
+    var bodyContentAddingEvent = document.querySelector(
+      ".task-manager-content-right-ul"
+    );
+    var $eventBar = document.createElement("li");
+    $eventBar.id = dataForDay.title + "-" + dataForDay.importance;
+    bodyContentAddingEvent.appendChild($eventBar);
+
+    var $eventImportance = document.createElement("div");
+    $eventImportance.id = dataForDay.importance;
+    var colorImportance;
+    if (dataForDay.importance === "1") {
+      colorImportance = "red";
+    } else if (dataForDay.importance === "2") {
+      colorImportance = "orange";
+    } else if (dataForDay.importance === "3") {
+      colorImportance = "green";
+    }
+    $eventImportance.style.background = colorImportance;
+    var $eventTitle = document.createElement("span");
+    $eventTitle.id = dataForDay.title;
+    $eventTitle.innerHTML = dataForDay.title;
+    $eventBar.appendChild($eventImportance);
+    $eventBar.appendChild($eventTitle);
+  }
+}
+
+function createDataInlocalStorage() {
+  var databar = {
+    title: inputTitle.value,
+    importance: selectImportance.value,
+  };
+  if (!localStorage.getItem(inputDatePicker.value)) {
+    localStorage.setItem(inputDatePicker.value, e);
+    var dataNbrOfDate = localStorage.getItem(inputDatePicker.value);
+    localStorage.setItem(
+      inputDatePicker.value + " " + dataNbrOfDate,
+      JSON.stringify(databar)
+    );
+    console.log(dataNbrOfDate);
+  } else {
+    var dataNbrOfDateElse = localStorage.getItem(inputDatePicker.value);
+    dataNbrOfDateElsePlusOne = dataNbrOfDateElse++;
+    localStorage.setItem(inputDatePicker.value, dataNbrOfDateElse);
+    localStorage.setItem(
+      inputDatePicker.value + " " + dataNbrOfDateElse,
+      JSON.stringify(databar)
+    );
+  }
+}
+
 buttonAddEvent.addEventListener("click", () => {
   if (!inputTitle.value || selectImportance.value === "0") {
     alert("Veuillez completer l'entiéreté des valeurs ci-dessus !");
   } else {
+    updateEventToBodyContent();
     console.log(inputTitle.value);
     console.log(selectImportance.value);
     console.log(inputDatePicker.value);
@@ -76,6 +138,7 @@ buttonAddEvent.addEventListener("click", () => {
     }
     console.log(colorImportance);
     addingEventToBodyContent(colorImportance);
+    createDataInlocalStorage();
     dateControl.valueAsDate = inputDatePicker.valueAsDate;
     inputTitle.value = "";
     selectImportance.value = "0";
@@ -100,10 +163,9 @@ function addingEventToBodyContent(colorImportance) {
   $eventBar.appendChild($eventTitle);
 }
 function updateEventToBodyContent() {
-  addingEventToBodyContent();
   var bodyContentAddingEvent = document.querySelector(
     ".task-manager-content-right-ul"
   );
   bodyContentAddingEvent.innerHTML = "";
+  changeDataToDateControl();
 }
-
