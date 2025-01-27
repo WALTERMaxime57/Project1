@@ -1,0 +1,177 @@
+
+
+/* TASK MANAGER */
+
+#task-manager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  width: 1700px;
+  height: 850px;
+  background: var(--primary-color-light);
+  font-size: 16px;
+  transition: var(--tran-05);
+}
+
+.task-manager-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50px;
+  width: 500px;
+  font-size: 16px;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.task-manager-top #date {
+  position: absolute;
+  align-items: center;
+  top: 170px;
+  border-radius: 6px;
+  border: none;
+  background: var(--toggle-color);
+  text-align: center;
+}
+
+#task-manager .task-manager-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.task-manager-content-left {
+  position: absolute;
+  top: 90px;
+  left: 75px;
+  height: 225px;
+  width: 200px;
+  background: var(--toggle-color);
+  border-radius: 6px;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.task-manager-content-right {
+  height: 450px;
+  width: 650px;
+  background: var(--toggle-color);
+  border-radius: 6px;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.task-manager-input-title {
+  position: relative;
+  text-align: center;
+  left: 25px;
+  top: 25px;
+  width: 150px;
+  height: 25px;
+  color: var(--toggle-color);
+  background: var(--primary-color);
+  border-radius: 6px;
+  border: none;
+}
+
+select {
+  appearance: none;
+  outline: 10px red;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding: 0 15px;
+  color: var(--toggle-color);
+  background-color: var(--primary-color);
+  background-image: none;
+  cursor: pointer;
+}
+
+/* select::-ms-expand {
+  display: none;
+} */
+
+.task-manager-content-left-select {
+  top: 50px;
+  left: 25px;
+  position: relative;
+  display: flex;
+  width: 150px;
+  height: 25px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.task-manager-content-left-select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 2px;
+  right: 20px;
+  padding: 0px;
+  background-color: #34495e;
+  transition: var(--tran-03);
+  pointer-events: none;
+}
+
+.task-manager-content-left-select:hover::after {
+  color: #f39c12;
+}
+
+.task-manager-content-left-datepicker {
+  position: relative;
+  top: 75px;
+  left: 25px;
+  border-radius: 6px;
+}
+
+.task-manager-content-left-datepicker input {
+  border-radius: 6px;
+  background: var(--primary-color);
+  border: none;
+  width: 150px;
+  height: 25px;
+  text-align: center;
+  color: var(--toggle-color);
+}
+
+.task-manager-content-left-button-add-event {
+  position: relative;
+  left: 25px;
+  top: 100px;
+  border: none;
+  border-radius: 6px;
+  width: 150px;
+  height: 25px;
+  background: var(--primary-color);
+  color: var(--toggle-color);
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+    0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+.task-manager-content-right-ul li {
+  height: 25px;
+  background: var(--primary-color-light);
+  margin: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.task-manager-content-right-ul div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.task-manager-content-right-ul span {
+  padding: 75px;
+}

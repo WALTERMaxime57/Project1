@@ -1,13 +1,46 @@
+define(["../controller/btns_controller", "../controller/input_controller"], function (oBtnsController, oInputController) {
+  var $buttonAddEvent = oBtnsController.createBtns(".task-manager-content-left", "Ajouter l'évenement", "task-manager-content-left-button-add-event" ,function(){
+    if (!$inputTitle.val() || $selectImportance.val() === "0") {
+      alert("Veuillez completer l'entiéreté des valeurs ci-dessus !");
+    } else {
+      var iColorImportance =
+        {
+          1: "red",
+          2: "orange",
+          3: "green",
+        }[$selectImportance.val()] || "grey";
+      addingEventToBodyContent(iColorImportance);
+      createDataInlocalStorage();
+      $dateControl.val($inputDatePicker.val());
+      $inputTitle.val("");
+      $selectImportance.val("0");
+      $inputDatePicker.val(formattedDate);
+    }
+  });
+
+  var $inputTitle = oInputController.createInput(".task-manager-content-left", "Titre ","text", "task-manager-input-title", null);
+
+  var $selectImportance = oInputController.createSelec(".task-manager-content-left", $optionSelec, "task-manager-content-left-selected")
+
+
+});
+
 //******************TASK MANAGER*********************//
 
 //** VAR **//
 
-var e = 1;
-var $dateControl = $("#date");
-var $inputTitle = $(".task-manager-input-title");
-var $selectImportance = $(".task-manager-content-left-selected");
-var $inputDatePicker = $(".task-manager-content-left-input-datepicker");
-var $buttonAddEvent = $(".task-manager-content-left-button-add-event");
+var e = 1,
+  $dateControl = $("#date"),
+  $inputTitle = $(".task-manager-input-title"),
+  $selectImportance = $(".task-manager-content-left-selected"),
+  $inputDatePicker = $(".task-manager-content-left-input-datepicker");
+  $optionSelec = [
+    $("<option>").text="Importance",
+    $("<option>").text="Rouge",
+    $("<option>").text="Orange",
+    $("<option>").text="Vert",
+  ];
+  console.log($optionSelec)
 
 //** DATE VALUE **/
 
@@ -44,28 +77,23 @@ function changeDataToDateControl() {
     nbrForChangeData++
   ) {
     var aDataForDay = JSON.parse(
-      localStorage.getItem($dateControl.val() + " " + nbrForChangeData)
-    );
+        localStorage.getItem($dateControl.val() + " " + nbrForChangeData)
+      ),
+      $bodyContentAddingEvent = $(".task-manager-content-right-ul"),
+      $eventBar = $("<li>"),
+      $eventImportance = $("<div>"),
+      $eventTitle = $("<span>");
 
-    var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
-    var $eventBar = $("<li>");
-    var $eventImportance = $("<div>");
-    var $eventTitle = $("<span>");
-
-    $eventBar.id = aDataForDay.title + "-" + aDataForDay.importance;
     $bodyContentAddingEvent.append($eventBar);
 
     $eventImportance.id = aDataForDay.importance;
-    var iColorImportance;
-    if (aDataForDay.importance === "1") {
-      iColorImportance = "red";
-    } else if (aDataForDay.importance === "2") {
-      iColorImportance = "orange";
-    } else if (aDataForDay.importance === "3") {
-      iColorImportance = "green";
-    }
+    var iColorImportance =
+      {
+        1: "red",
+        2: "orange",
+        3: "green",
+      }[aDataForDay.importance] || "grey";
     $eventImportance.css("background", iColorImportance);
-    $eventTitle.id = aDataForDay.title;
     $eventTitle.html(aDataForDay.title);
     $eventBar.append($eventImportance);
     $eventBar.append($eventTitle);
@@ -85,9 +113,9 @@ function createDataInlocalStorage() {
       JSON.stringify(aDataBar)
     );
   } else {
-    var dataNbrOfDateElse = localStorage.getItem($inputDatePicker.value);
+    var dataNbrOfDateElse = localStorage.getItem($inputDatePicker.val());
     dataNbrOfDateElsePlusOne = dataNbrOfDateElse++;
-    localStorage.setItem($inputDatePicker.value, dataNbrOfDateElse);
+    localStorage.setItem($inputDatePicker.val(), dataNbrOfDateElse);
     localStorage.setItem(
       $inputDatePicker.val() + " " + dataNbrOfDateElse,
       JSON.stringify(aDataBar)
@@ -95,43 +123,20 @@ function createDataInlocalStorage() {
   }
 }
 
-$buttonAddEvent.on("click", function () {
-  if (!$inputTitle.val() || $selectImportance.val() === "0") {
-    alert("Veuillez completer l'entiéreté des valeurs ci-dessus !");
-  } else {
-    var iColorImportance;
-    if ($selectImportance.val() === "1") {
-      iColorImportance = "red";
-    } else if ($selectImportance.val() === "2") {
-      iColorImportance = "orange";
-    } else if ($selectImportance.val() === "3") {
-      iColorImportance = "green";
-    }
-    addingEventToBodyContent(iColorImportance);
-    createDataInlocalStorage();
-    $dateControl.val($inputDatePicker.val());
-    $inputTitle.val("");
-    $selectImportance.val("0");
-    $inputDatePicker.val(formattedDate);
-  }
-});
 
 function addingEventToBodyContent(iColorImportance) {
   var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
-  var $eventBar = $("<li>");
-  var $eventTitle = $("<span>");
-  var $eventImportance = $("<div>");
-  $eventBar.id = $inputTitle.val() + "-" + $inputDatePicker.val();
+  var $eventBar = $("<li>"),
+    $eventTitle = $("<span>"),
+    $eventImportance = $("<div>");
+
   $bodyContentAddingEvent.append($eventBar);
-
-  $eventImportance.id = $selectImportance.val();
   $eventImportance.css("background", iColorImportance);
-
-  $eventTitle.id = $inputTitle.val();
   $eventTitle.html($inputTitle.val());
   $eventBar.append($eventImportance);
   $eventBar.append($eventTitle);
 }
+
 function updateEventToBodyContent() {
   addingEventToBodyContent();
   var $bodyContentAddingEvent = $(".task-manager-content-right-ul");

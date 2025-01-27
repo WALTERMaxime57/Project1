@@ -172,6 +172,7 @@ body.dark .sidebar li a:hover .text {
   position: relative;
   border-radius: 6px;
   background: var(--primary-color-light);
+  transition: var(--tran-05);
 }
 .menu-bar .mode .moon-sun {
   height: 50px;
@@ -183,18 +184,12 @@ body.dark .sidebar li a:hover .text {
   position: absolute;
   transition: var(--tran-03);
 }
-
-.menu-bar .mode i.sun {
+.mode .moon-sun .moon{
   opacity: 0;
 }
-
-body.dark .menu-bar .mode i.sun {
-  opacity: 1;
-}
-
-body.dark .menu-bar .mode i.moon {
+/* .menu-bar .mode i.sun {
   opacity: 0;
-}
+} */
 
 .menu-bar .mode .toggle-switch {
   position: absolute;
@@ -219,7 +214,7 @@ body.dark .menu-bar .mode i.moon {
   transition: var(--tran-05);
 }
 
-.switch::before {
+.switch-before {
   content: "";
   position: absolute;
   height: 15px;
@@ -230,10 +225,6 @@ body.dark .menu-bar .mode i.moon {
   transform: translateY(-50%);
   background: var(--sidebar-color);
   transition: var(--tran-03);
-}
-
-body.dark .switch::before {
-  left: 24px;
 }
 
 .home {
