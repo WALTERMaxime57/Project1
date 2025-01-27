@@ -2,72 +2,133 @@
 
 //** VAR **//
 
-var $dateControl = $("date");
-var inputTitle = document.querySelector(".task-manager-input-title");
-console.log(inputTitle);
-var selectImportance = document.querySelector(
-  ".task-manager-content-left-selected"
-);
-console.log(selectImportance);
-var inputDatePicker = document.querySelector(
-  ".task-manager-content-left-input-datepicker"
-);
-console.log(inputDatePicker);
-var buttonAddEvent = document.querySelector(
-  ".task-manager-content-left-button-add-event"
-);
-console.log(buttonAddEvent);
+var e = 1;
+var $dateControl = $("#date");
+var $inputTitle = $(".task-manager-input-title");
+var $selectImportance = $(".task-manager-content-left-selected");
+var $inputDatePicker = $(".task-manager-content-left-input-datepicker");
+var $buttonAddEvent = $(".task-manager-content-left-button-add-event");
 
 //** DATE VALUE **/
 
-inputDatePicker.min = new Date().toISOString().split("T")[0];
-inputDatePicker.valueAsDate = new Date();
-dateControl.valueAsDate = new Date();
+var today = new Date();
+
+// Formatage en yyyy-mm-dd
+var formattedDate =
+  today.getFullYear() +
+  "-" +
+  ("0" + (today.getMonth() + 1)).slice(-2) +
+  "-" +
+  ("0" + today.getDate()).slice(-2);
+
+$dateControl.val(formattedDate);
+$inputDatePicker.attr("min", formattedDate);
+$inputDatePicker.val(formattedDate);
+
+$(window).on("load", function () {
+  updateEventToBodyContent();
+});
 
 $dateControl.on("change", function () {
-  console.log(dateControl.value);
   updateEventToBodyContent();
 });
 
 //** CREATE EVENT **//
-var $buttonAddEvent = $(".task-manager-content-left-button-add-event");
 
-$buttonAddEvent.click(function () {
-  if (!inputTitle.value || selectImportance.value === "0") {
+function changeDataToDateControl() {
+  var nbrOfDataToDateControl = localStorage.getItem($dateControl.val());
+
+  for (
+    var nbrForChangeData = 1;
+    nbrForChangeData <= nbrOfDataToDateControl;
+    nbrForChangeData++
+  ) {
+    var aDataForDay = JSON.parse(
+      localStorage.getItem($dateControl.val() + " " + nbrForChangeData)
+    );
+
+    var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+    var $eventBar = $("<li>");
+    var $eventImportance = $("<div>");
+    var $eventTitle = $("<span>");
+
+    $eventBar.id = aDataForDay.title + "-" + aDataForDay.importance;
+    $bodyContentAddingEvent.append($eventBar);
+
+    $eventImportance.id = aDataForDay.importance;
+    var iColorImportance;
+    if (aDataForDay.importance === "1") {
+      iColorImportance = "red";
+    } else if (aDataForDay.importance === "2") {
+      iColorImportance = "orange";
+    } else if (aDataForDay.importance === "3") {
+      iColorImportance = "green";
+    }
+    $eventImportance.css("background", iColorImportance);
+    $eventTitle.id = aDataForDay.title;
+    $eventTitle.html(aDataForDay.title);
+    $eventBar.append($eventImportance);
+    $eventBar.append($eventTitle);
+  }
+}
+
+function createDataInlocalStorage() {
+  var aDataBar = {
+    title: $inputTitle.val(),
+    importance: $selectImportance.val(),
+  };
+  if (!localStorage.getItem($inputDatePicker.val())) {
+    localStorage.setItem($inputDatePicker.val(), e);
+    var dataNbrOfDate = localStorage.getItem($inputDatePicker.val());
+    localStorage.setItem(
+      $inputDatePicker.val() + " " + dataNbrOfDate,
+      JSON.stringify(aDataBar)
+    );
+  } else {
+    var dataNbrOfDateElse = localStorage.getItem($inputDatePicker.value);
+    dataNbrOfDateElsePlusOne = dataNbrOfDateElse++;
+    localStorage.setItem($inputDatePicker.value, dataNbrOfDateElse);
+    localStorage.setItem(
+      $inputDatePicker.val() + " " + dataNbrOfDateElse,
+      JSON.stringify(aDataBar)
+    );
+  }
+}
+
+$buttonAddEvent.on("click", function () {
+  if (!$inputTitle.val() || $selectImportance.val() === "0") {
     alert("Veuillez completer l'entiéreté des valeurs ci-dessus !");
   } else {
-    console.log(inputTitle.value);
-    console.log(selectImportance.value);
-    console.log(inputDatePicker.value);
-    var colorImportance;
-    if (selectImportance.value === "1") {
-      colorImportance = "red";
-    } else if (selectImportance.value === "2") {
-      colorImportance = "orange";
-    } else if (selectImportance.value === "3") {
-      colorImportance = "green";
+    var iColorImportance;
+    if ($selectImportance.val() === "1") {
+      iColorImportance = "red";
+    } else if ($selectImportance.val() === "2") {
+      iColorImportance = "orange";
+    } else if ($selectImportance.val() === "3") {
+      iColorImportance = "green";
     }
-    console.log(colorImportance);
-    addingEventToBodyContent(colorImportance);
-    dateControl.valueAsDate = inputDatePicker.valueAsDate;
-    inputTitle.value = "";
-    selectImportance.value = "0";
-    inputDatePicker.valueAsDate = new Date();
+    addingEventToBodyContent(iColorImportance);
+    createDataInlocalStorage();
+    $dateControl.val($inputDatePicker.val());
+    $inputTitle.val("");
+    $selectImportance.val("0");
+    $inputDatePicker.val(formattedDate);
   }
 });
 
-function addingEventToBodyContent(colorImportance) {
+function addingEventToBodyContent(iColorImportance) {
   var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
-  var $eventBar = $("li");
-  $eventBar.id = inputTitle.value + "-" + inputDatePicker.value;
+  var $eventBar = $("<li>");
+  var $eventTitle = $("<span>");
+  var $eventImportance = $("<div>");
+  $eventBar.id = $inputTitle.val() + "-" + $inputDatePicker.val();
   $bodyContentAddingEvent.append($eventBar);
 
-  var $eventImportance = $("div");
-  $eventImportance.id = selectImportance.value;
-  $eventImportance.css("background", colorImportance);
-  var $eventTitle = $("span");
-  $eventTitle.id = inputTitle.value;
-  $eventTitle.html(inputTitle.value);
+  $eventImportance.id = $selectImportance.val();
+  $eventImportance.css("background", iColorImportance);
+
+  $eventTitle.id = $inputTitle.val();
+  $eventTitle.html($inputTitle.val());
   $eventBar.append($eventImportance);
   $eventBar.append($eventTitle);
 }
@@ -75,4 +136,5 @@ function updateEventToBodyContent() {
   addingEventToBodyContent();
   var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
   $bodyContentAddingEvent.html("");
+  changeDataToDateControl();
 }

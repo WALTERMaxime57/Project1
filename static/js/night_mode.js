@@ -1,24 +1,25 @@
 // NIGHT MODE
 
-var body = document.querySelector("body"),
-  sidebar = body.querySelector(".sidebar"),
-  toggle = body.querySelector(".toggle"),
-  searchBtn = body.querySelector(".search-box"),
-  modeSwitch = body.querySelector(".toggle-switch"),
-  modeText = body.querySelector(".mode-text");
+var $body = $("#body");
+var $sidebar = $(".sidebar");
+var $toggle = $(".toggle");
+var $searchBtn = $(".search-box");
+var $modeSwitch = $(".toggle-switch");
+var $modeText = $(".mode-text");
 
-toggle.addEventListener("click", () => {
-  sidebar.classList.toggle("close");
+$toggle.on("click", function () {
+  $sidebar.toggleClass("close");
+  console.log("YEP");
 });
-searchBtn.addEventListener("click", () => {
-  sidebar.classList.remove("close");
+$searchBtn.on("click", function () {
+  $sidebar.removeClass("close");
 });
-modeSwitch.addEventListener("click", () => {
-  body.classList.toggle("dark");
+$modeSwitch.on("click", function () {
+  $body.toggleClass("dark");
 
-  if (body.classList.contains("dark")) {
-    modeText.innerText = "Mode Jour";
+  if ($body.hasClass(".dark")) {
+    $modeText.html("Mode Jour");
   } else {
-    modeText.innerText = "Mode Nuit";
+    $modeText.html("Mode Nuit");
   }
 });
