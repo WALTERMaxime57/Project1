@@ -76,7 +76,7 @@
   border: none;
 }
 
-select {
+.task-manager-content-left-selected {
   appearance: none;
   outline: 10px red;
   border: 0;

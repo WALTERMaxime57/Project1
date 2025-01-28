@@ -15,22 +15,30 @@ define(["../controller/btns_controller", "../controller/input_controller"], func
       $inputTitle.val("");
       $selectImportance.val("0");
       $inputDatePicker.val(formattedDate);
+      var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+      $bodyContentAddingEvent.html("");
+      changeDataToDateControl();
     }
   });
 
-  var $inputTitle = oInputController.createInput(".task-manager-content-left", "Titre ","text", "task-manager-input-title", null);
-  var $inputDatePicker = oInputController.createInput(".task-manager-content-left-datepicker", null, "date", "task-manager-content-left-input-datepicker", null);
-  var $dateControl = oInputController.createInput(".task-manager-top", null, "date", "task-manager-top-date", null);
+  var $inputTitle = oInputController.createInput(".task-manager-content-left", "Titre ","text", "task-manager-input-title", null, null),
+      $inputDatePicker = oInputController.createInput(".task-manager-content-left-datepicker", null, "date", "task-manager-content-left-input-datepicker", null, null),
+      $dateControl = oInputController.createInput(".task-manager-top", null, "date", "task-manager-top-date", "change", function(){
+      addingEventToBodyContent();
+      var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+      $bodyContentAddingEvent.html("");
+      changeDataToDateControl();
+  });
 
-
-  $optionSelec = [
-    $("<option>").text="Importance",
-    $("<option>").text="Rouge",
-    $("<option>").text="Orange",
-    $("<option>").text="Vert",
+  $aOptionSelec = [
+    "Importance",
+    "Rouge",
+    "Orange",
+    "Vert",
   ];
-
-  var $selectImportance = oInputController.createSelec(".task-manager-content-left-select", $optionSelec, "task-manager-content-left-selected");
+  
+  var $optionsSelectImportance = oInputController.createOptions($aOptionSelec, ".task-manager-content-left-selected"),
+      $selectImportance = oInputController.createSelec(".task-manager-content-left-select", "task-manager-content-left-selected", $aOptionSelec);
 
   //******************TASK MANAGER*********************//
 
@@ -59,17 +67,21 @@ $inputDatePicker.attr("min", formattedDate);
 $inputDatePicker.val(formattedDate);
 
 $(window).on("load", function () {
-updateEventToBodyContent();
+    addingEventToBodyContent();
+    var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
+    $bodyContentAddingEvent.html("");
+    changeDataToDateControl();
 });
 
-$dateControl.on("change", function () {
-updateEventToBodyContent();
-});
+// $dateControl.on("change", function () {
+// updateEventToBodyContent();
+// });
+
 
 //** CREATE EVENT **//
 
 function changeDataToDateControl() {
-var nbrOfDataToDateControl = localStorage.getItem($dateControl.val());
+var nbrOfDataToDateControl = localStorage.getItem($(".task-manager-top-date").val());
 
 for (
   var nbrForChangeData = 1;
@@ -132,17 +144,11 @@ var $eventBar = $("<li>"),
 
 $bodyContentAddingEvent.append($eventBar);
 $eventImportance.css("background", iColorImportance);
-$eventTitle.html($inputTitle.val());
+$eventTitle.html($(".task-manager-input-title").val());
 $eventBar.append($eventImportance);
 $eventBar.append($eventTitle);
 }
 
-function updateEventToBodyContent() {
-addingEventToBodyContent();
-var $bodyContentAddingEvent = $(".task-manager-content-right-ul");
-$bodyContentAddingEvent.html("");
-changeDataToDateControl();
-}
 
 
 
