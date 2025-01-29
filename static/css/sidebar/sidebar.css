@@ -187,9 +187,6 @@ body.dark .sidebar li a:hover .text {
 .mode .moon-sun .moon{
   opacity: 0;
 }
-/* .menu-bar .mode i.sun {
-  opacity: 0;
-} */
 
 .menu-bar .mode .toggle-switch {
   position: absolute;

@@ -12,20 +12,16 @@ define(function () {
       },
 
       createOptions : function(aOptions, sParent){
-        console.log(aOptions)
         var iLenghtOptions = aOptions.length;
         console.log(iLenghtOptions);
         for(i = 0; i < iLenghtOptions; i++){
           if(i === 0){
             var $options = $('<option>');
             $options.attr("value", i);
-            // $options.attr("disable selected");
             $options.attr("disabled", true);
             $options.attr("selected", true);
             $options.html(aOptions[i]);
-            console.log(aOptions[i])
             $(sParent).append($options);
-            console.log(sParent)
           }else{
             var $options = $('<option>');
             $options.attr("value", i)

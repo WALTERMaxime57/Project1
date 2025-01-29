@@ -1,12 +1,12 @@
-var sidebar = $(".sidebar"),
-    searchBtn = $(".search-box"),
-    toggle = $(".toggle");
+var $sidebar = $(".sidebar"),
+    $searchBtn = $(".search-box"),
+    $toggle = $(".toggle");
 
-toggle.on("click", function() {
-  sidebar.toggleClass("close");
+$toggle.on("click", function() {
+  $sidebar.toggleClass("close");
 });
-searchBtn.on("click", function() {
-  sidebar.removeClass("close");
+$searchBtn.on("click", function() {
+  $sidebar.removeClass("close");
 });
 
 
