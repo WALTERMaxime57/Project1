@@ -90,36 +90,37 @@
     
     }
     
-    .task-manager-content-left-select::after {
-      content: "\25BC";
-      position: absolute;
-      top: 2px;
-      right: 20px;
-      padding: 0px;
-      background-color: #34495e;
-      transition: var(--tran-03);
-      pointer-events: none;
-    }
-
-    .task-manager-content-left-select:hover::after {
-      color: #f39c12;
-    }
-
+    .task-manager-content-left-select {
+      &::after {
+          content: "\25BC";
+          position: absolute;
+          top: 2px;
+          right: 20px;
+          padding: 0px;
+          background-color: #34495e;
+          transition: var(--tran-03);
+          pointer-events: none;
+      }
+  
+      &:hover::after {
+          color: #f39c12;
+      }
+  }
     .task-manager-content-left-datepicker {
       position: relative;
       top: 75px;
       left: 25px;
       border-radius: 6px;
-    }
-    
-    .task-manager-content-left-datepicker input {
-      border-radius: 6px;
-      background: var(--primary-color);
-      border: none;
-      width: 150px;
-      height: 25px;
-      text-align: center;
-      color: var(--toggle-color);
+
+      input {
+        border-radius: 6px;
+        background: var(--primary-color);
+        border: none;
+        width: 150px;
+        height: 25px;
+        text-align: center;
+        color: var(--toggle-color);
+      }
     }
     .task-manager-content-left-button-add-event {
       position: relative;

@@ -30,6 +30,7 @@
     width: 40px;
     border-radius: 50px;
   }
+
   .menu {
     margin-top: 35px;
   }
@@ -38,6 +39,7 @@
     background: var(--primary-color-light);
     border-radius: 6px;
     transition: var(--tran-05);
+
     input {
       height: 100%;
       width: 100%;
@@ -58,6 +60,7 @@
     .text {
       opacity: 0;
     }
+
     header .toggle {
       transform: translateY(-50%);
     }
@@ -65,20 +68,24 @@
 
   header {
     position: relative;
+
     .image-text {
       display: flex;
       align-items: center;
     }
+
     .image-text .header-text {
       display: flex;
       flex-direction: column;
+      .name {
+        font-weight: 600;
+      }
+
+      .profession {
+        margin-top: -2px;
+      }
     }
-    .header-text .name {
-      font-weight: 600;
-    }
-    .header-text .profession {
-      margin-top: -2px;
-    }
+
     .toggle {
       position: absolute;
       top: 50%;
@@ -111,11 +118,13 @@
       min-width: 60px;
       font-size: 20px;
     }
+
     .icon,
     .text {
       color: var(--text-color);
       transition: var(--tran-02);
     }
+
     a {
       height: 100%;
       width: 100%;
@@ -125,6 +134,7 @@
       transition: var(--tran-04);
       border-radius: 6px;
     }
+
     a:hover {
       background: var(--primary-color);
       .icon,
@@ -139,13 +149,15 @@
   padding: 0;
 }
 
-body.dark .sidebar header .toggle {
+
+body.dark .sidebar{
+  header .toggle {
+    color: var(--text-color);
+  }
+  li a:hover .icon,
+li a:hover .text {
   color: var(--text-color);
 }
-
-body.dark .sidebar li a:hover .icon,
-body.dark .sidebar li a:hover .text {
-  color: var(--text-color);
 }
 
 .sidebar .menu-bar {
@@ -153,24 +165,29 @@ body.dark .sidebar li a:hover .text {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   .mode {
     position: relative;
     border-radius: 6px;
     background: var(--primary-color-light);
     transition: var(--tran-05);
+
     .moon-sun {
       height: 50px;
       width: 60px;
       display: flex;
       align-items: center;
+
       .moon{
         opacity: 0;
       }
     }
+
     i {
       position: absolute;
       transition: var(--tran-03);
     }
+    
     .toggle-switch {
       position: absolute;
       right: 0;
@@ -183,6 +200,7 @@ body.dark .sidebar li a:hover .text {
       border-radius: 6px;
       background: var(--primary-color-light);
       transition: var(--tran-05);
+
       .switch {
         position: relative;
         height: 22px;
@@ -190,6 +208,7 @@ body.dark .sidebar li a:hover .text {
         border-radius: 25px;
         background: var(--toggle-color);
         transition: var(--tran-05);
+
         .switch-before {
           content: "";
           position: absolute;
@@ -214,6 +233,7 @@ body.dark .sidebar li a:hover .text {
   width: calc(100% -250px);
   background: var(--body-color);
   transition: var(--tran-05);
+
   .text {
     font-size: 30px;
     font-weight: 500;
