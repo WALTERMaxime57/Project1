@@ -12,8 +12,8 @@ define(["../controller/btns_controller", "../controller/input_controller"], func
           2: "orange",
           3: "green",
         }[$selectImportance.val()] || "grey";
-      addingEventToBodyContent(oColorImportance);
       createDataInlocalStorage();
+      addingEventToBodyContent(oColorImportance);
       $dateControl.val($inputDatePicker.val());
       $inputTitle.val("");
       $selectImportance.val("0");
@@ -67,7 +67,6 @@ $inputTitle = $(".task-manager-input-title"),
 $selectImportance = $(".task-manager-content-left-selected"),
 $inputDatePicker = $(".task-manager-content-left-input-datepicker");
 
-
 //** DATE VALUE **/
 
 var today = new Date();
@@ -80,7 +79,6 @@ today.getFullYear() +
 "-" +
 ("0" + today.getDate()).slice(-2);
 
-console.log(sformattedDate);
 $dateControl.val(sformattedDate);
 $inputDatePicker.attr("min", sformattedDate);
 $inputDatePicker.val(sformattedDate);
@@ -91,19 +89,16 @@ $(window).on("load", function () {
     $bodyContentAddingEvent.html("");
     changeDataToDateControl();
 });
-
 //** CREATE EVENT **//
 
 function changeDataToDateControl() {
-var nbrOfDataToDateControl = localStorage.getItem($(".task-manager-top-date").val());
-  for (
-    var nbrForChangeData = 1; nbrForChangeData <= nbrOfDataToDateControl; nbrForChangeData++) {
-    var aDataForDay = JSON.parse(localStorage.getItem($dateControl.val() + " " + nbrForChangeData)),
+var iDataToDateControl = localStorage.getItem($(".task-manager-top-date").val());
+  for (iChangeData = 1; iChangeData <= iDataToDateControl; iChangeData++) {
+    var aDataForDay = JSON.parse(localStorage.getItem($dateControl.val() + " " + iChangeData)),
         $bodyContentAddingEvent = $(".task-manager-content-right-ul"),
         $eventBar = $("<li>"),
         $eventImportance = $("<div>"),
         $eventTitle = $("<span>");
-        console.log(aDataForDay);
         $bodyContentAddingEvent.append($eventBar);
         $eventImportance.id = aDataForDay.importance;
         var oColorImportance =
@@ -116,7 +111,7 @@ var nbrOfDataToDateControl = localStorage.getItem($(".task-manager-top-date").va
         $eventTitle.html(aDataForDay.title);
         $eventBar.append($eventImportance);
         $eventBar.append($eventTitle);
-}
+    }
 }
 
 function createDataInlocalStorage() {
@@ -126,13 +121,13 @@ var oDataBar = {
 };
 if (!localStorage.getItem($inputDatePicker.val())) {
   localStorage.setItem($inputDatePicker.val(), e);
-  var dataNbrOfDate = localStorage.getItem($inputDatePicker.val());
-  localStorage.setItem($inputDatePicker.val() + " " + dataNbrOfDate,JSON.stringify(oDataBar));
+  var iNbrOfDate = localStorage.getItem($inputDatePicker.val());
+  localStorage.setItem($inputDatePicker.val() + " " + iNbrOfDate,JSON.stringify(oDataBar));
 } else {
-  var dataNbrOfDateElse = localStorage.getItem($inputDatePicker.val());
-  dataNbrOfDateElsePlusOne = dataNbrOfDateElse++;
-  localStorage.setItem($inputDatePicker.val(), dataNbrOfDateElse);
-  localStorage.setItem($inputDatePicker.val() + " " + dataNbrOfDateElse, JSON.stringify(oDataBar));
+  var iNbrOfDate = localStorage.getItem($inputDatePicker.val());
+  iNbrOfDate++;
+  localStorage.setItem($inputDatePicker.val(), iNbrOfDate);
+  localStorage.setItem($inputDatePicker.val() + " " + iNbrOfDate, JSON.stringify(oDataBar));
 }
 }
 
@@ -147,7 +142,4 @@ $eventTitle.html($(".task-manager-input-title").val());
 $eventBar.append($eventImportance);
 $eventBar.append($eventTitle);
 }
-
 });
-
-
