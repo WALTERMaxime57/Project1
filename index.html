@@ -2,7 +2,15 @@
 <html lang="en">
   <head>
     <title>Task Manager</title>
-    <link rel="stylesheet" href="style.css" />
+    <script src="./static/js/extensions/jquery-3.7.1.min.js"></script>
+    <script
+      data-main="./static/js/main/scripts.js"
+      src="./static/js/extensions/require.js"
+    ></script>
+    <link rel="stylesheet" href="./static/css/root/global.css" />
+    <link id="themeLink" rel="stylesheet" href="./static/css/variable/variable.css" />
+    <link rel="stylesheet" href="./static/css/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="./static/css/task_manager/task_manager.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,12 +27,12 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body id="body">
     <nav class="sidebar close">
       <header>
         <div class="image-text">
           <span class="image">
-            <img src="img-profile.jpg" alt="logo" />
+            <img src="./static/img/img-profile.jpg" alt="logo" />
           </span>
 
           <div class="text header-text">
@@ -93,9 +101,11 @@
               <i class="bx bx-moon icon moon"></i>
               <i class="bx bx-sun icon sun"></i>
             </div>
-            <span class="mode-text text">Mode Nuit</span>
+            <span class="mode-text text">Mode Jour</span>
             <div class="toggle-switch">
-              <span class="switch"></span>
+              <span class="switch">
+                <span class="switch-before"></span>
+              </span>
             </div>
           </li>
         </div>
@@ -107,35 +117,13 @@
         Planning
         <div id="task-manager">
           <div class="task-manager-top text">
-            <input type="date" id="date" name="date" />
             <span class="task-manager-top-text">Gestionnaire de tâche</span>
           </div>
           <div class="task-manager-content-left">
-            <input
-              class="task-manager-input-title"
-              type="text"
-              placeholder="Titre"
-              maxlength="15"
-            />
             <div class="task-manager-content-left-select">
-              <select class="task-manager-content-left-selected">
-                <option value="0" , disabled selected>Importance :</option>
-                <option value="1">Rouge</option>
-                <option value="2">Orange</option>
-                <option value="3">Vert</option>
-              </select>
             </div>
             <div class="task-manager-content-left-datepicker">
-              <input
-                class="task-manager-content-left-input-datepicker"
-                type="date"
-                id="date"
-                name="date"
-              />
             </div>
-            <button class="task-manager-content-left-button-add-event">
-              Ajouter l'évenement
-            </button>
           </div>
           <div class="task-manager-content-right">
             <ul class="task-manager-content-right-ul"></ul>
@@ -143,7 +131,6 @@
         </div>
       </div>
     </section>
-
-    <script src="scripts.js"></script>
+    <script src="./static/js/night_mod/night_mode.js"></script>
   </body>
 </html>
